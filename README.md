@@ -553,16 +553,6 @@ WHERE (video_id = 7000) AND (user_id = 7)
 └─────────┘
 
 1 rows in set. Elapsed: 0.023 sec. Processed 506.20 thousand rows, 3.13 MB (22.27 million rows/s., 137.55 MB/s.)
-
-
-
-[kshvakov] 2019.05.07 08:10:51.718477 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> executeQuery: (from 127.0.0.1:53160) SELECT count() FROM video_events_agg WHERE video_id = 7000
-[kshvakov] 2019.05.07 08:10:51.720669 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> default.video_events_agg (SelectExecutor): Key condition: (column 2 in [7000, 7000])
-[kshvakov] 2019.05.07 08:10:51.720752 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> default.video_events_agg (SelectExecutor): MinMax index condition: unknown
-[kshvakov] 2019.05.07 08:10:51.735222 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> default.video_events_agg (SelectExecutor): Index `idx_video_id` has dropped 1039 granules.
-[kshvakov] 2019.05.07 08:10:51.736722 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> default.video_events_agg (SelectExecutor): Index `idx_video_id` has dropped 209 granules.
-[kshvakov] 2019.05.07 08:10:51.736824 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> default.video_events_agg (SelectExecutor): Selected 2 parts by date, 2 parts by key, 249 marks to read from 236 ranges
-[kshvakov] 2019.05.07 08:10:51.737111 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Trace> default.video_events_agg (SelectExecutor): Reading approx. 2039808 rows with 4 streams
 ```
 
 Однако, лучше чтоб подобными вещами занималась СУБД :)
@@ -590,6 +580,14 @@ WHERE video_id = 7000
 └─────────┘
 
 1 rows in set. Elapsed: 0.009 sec. Processed 663.55 thousand rows, 5.31 MB (75.90 million rows/s., 607.20 MB/s.)
+
+[kshvakov] 2019.05.07 08:10:51.718477 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> executeQuery: (from 127.0.0.1:53160) SELECT count() FROM video_events_agg WHERE video_id = 7000
+[kshvakov] 2019.05.07 08:10:51.720669 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> default.video_events_agg (SelectExecutor): Key condition: (column 2 in [7000, 7000])
+[kshvakov] 2019.05.07 08:10:51.720752 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> default.video_events_agg (SelectExecutor): MinMax index condition: unknown
+[kshvakov] 2019.05.07 08:10:51.735222 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> default.video_events_agg (SelectExecutor): Index `idx_video_id` has dropped 1039 granules.
+[kshvakov] 2019.05.07 08:10:51.736722 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> default.video_events_agg (SelectExecutor): Index `idx_video_id` has dropped 209 granules.
+[kshvakov] 2019.05.07 08:10:51.736824 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Debug> default.video_events_agg (SelectExecutor): Selected 2 parts by date, 2 parts by key, 249 marks to read from 236 ranges
+[kshvakov] 2019.05.07 08:10:51.737111 {4fe3e3c0-a911-4f05-811b-350efd806528} [ 48 ] <Trace> default.video_events_agg (SelectExecutor): Reading approx. 2039808 rows with 4 streams
 ```
 
 Логи, они должны быть отсортированы в обратном хронологическом порядке (мы должны видеть последние действия)
